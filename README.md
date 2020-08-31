@@ -9,11 +9,17 @@ Use:
 
 The mibi_titration_analysis script expects to be in a folder containing an Images subfolder, itself containing "MassCorrectedImages" and "FilteredImages" subfolders with the corresponding images:
 
-\mibi_titration_analysis 
-    mibi_titration_analysis.py
-    \Images
-        \MassCorrectedImages
-        \FilteredImages
+
+\mibi_titration_analysis
+
+----mibi_titration_analysis.py
+    
+----\Images
+    
+--------\MassCorrectedImages
+        
+--------\FilteredImages
+        
 
 After installation and creation of this directory structure, navigate to the mibi_titration_analysis folder and run:
 
