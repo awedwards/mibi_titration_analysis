@@ -61,7 +61,7 @@ for masscorrectpartner in masscorrectdir.iterdir():
 for pair in pairs:
     
     experiment = pair[0].name[:pair[0].name.find('MassCorrected')-1]
-    
+    print("Analyzing " + experiment)
     mc_image = open_tiff(pair[0])
     f_image = open_tiff(pair[1])
     
