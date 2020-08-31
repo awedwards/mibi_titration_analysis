@@ -15,4 +15,6 @@ The mibi_titration_analysis script expects to be in a folder containing an Image
         \MassCorrectedImages
         \FilteredImages
 
-After installation and creation of this directory structure, navigate to the mibi_titration_analysis folder and run: `python ./mibi_titration_analysis.py`
+After installation and creation of this directory structure, navigate to the mibi_titration_analysis folder and run:
+
+`python ./mibi_titration_analysis.py`
