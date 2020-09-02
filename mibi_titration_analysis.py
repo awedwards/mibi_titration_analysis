@@ -58,43 +58,44 @@ for masscorrectpartner in masscorrectdir.iterdir():
     if filterpartner.exists():
         pairs.append([masscorrectpartner, filterpartner])
 
-for pair in pairs:
-    
-    experiment = pair[0].name[:pair[0].name.find('MassCorrected')-1]
-    print("Analyzing " + experiment)
-    mc_image = open_tiff(pair[0])
-    f_image = open_tiff(pair[1])
-    
-    mc_tags = get_tags(pair[0], len(mc_image))
-    f_tags = get_tags(pair[1], len(f_image))
-    
-    channel_name = []
+# Get channels for first image
+mc_image = open_tiff(pairs[0][0])
+channels = get_tags(pairs[0][0], len(mc_image))
+
+for index, channel, in enumerate(channels):
+
+    fov_name = []
     mc_mean = []
     f_mean = []
     diff_mean = []
     ratio = []
-    
-    for index, channel, in enumerate(mc_tags):
+
+    for pair in pairs:
         
+        experiment = pair[0].name[:pair[0].name.find('MassCorrected')-1]
+        fov_name.append(experiment)
+
+        mc_image = open_tiff(pair[0])
+        f_image = open_tiff(pair[1])
+            
         diff_image = mc_image[index] - f_image[index]
-        
-        channel_name.append( channel )
+            
         mc_mean.append( nonzero_mean(mc_image[index]) )
         fm = nonzero_mean(f_image[index])
         f_mean.append(fm)
         dm = nonzero_mean(diff_image)
         diff_mean.append(dm)
         ratio.append(fm/dm)
-        
-    data = {'Channel Name':mc_tags, 
+            
+    data = {'FOV Name':fov_name, 
             'Mass Corrected Nonzero Mean': mc_mean, 
             'Filtered Nonzero Mean': f_mean, 
             'Difference Nonzero Mean': diff_mean,
             'Filtered to Difference Ratio': ratio}
-    
+
     df = pd.DataFrame(data)
-  
-    df.to_csv(str(pathlib.Path(datadir, experiment + ".csv" )),index=False)
+
+    df.to_csv(str(pathlib.Path(datadir, channel + ".csv" )),index=False)
 
 
 
