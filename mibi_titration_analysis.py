@@ -17,6 +17,7 @@ import pandas as pd
 import imageio
 import exifread
 import pathlib
+import re
 
 # Returns mean of all pixels that have a nonzero value
 def nonzero_mean(image):
@@ -70,6 +71,7 @@ for index, channel, in enumerate(channels):
     diff_mean = []
     ratio = []
 
+    print("Analyzing channel: " + channel)
     for pair in pairs:
         
         experiment = pair[0].name[:pair[0].name.find('MassCorrected')-1]
@@ -95,7 +97,8 @@ for index, channel, in enumerate(channels):
 
     df = pd.DataFrame(data)
 
-    df.to_csv(str(pathlib.Path(datadir, channel + ".csv" )),index=False)
+    results = re.findall("[A-z0-9]*",channel)
+    df.to_csv(str(pathlib.Path(datadir, "_".join([s for s in results if (len(s) > 0)]) + ".csv" )),index=False)
 
 
 
