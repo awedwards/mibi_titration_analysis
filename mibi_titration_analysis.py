@@ -25,7 +25,7 @@ def nonzero_mean(image):
 
 # Opens the tiff file
 def open_tiff(file_name):
-    image = imageio.mimread(file_name, multifile=True)
+    image = imageio.mimread(file_name, memtest="2GB",multifile=True)
     return image
 
 # Gets the channels from the tags
